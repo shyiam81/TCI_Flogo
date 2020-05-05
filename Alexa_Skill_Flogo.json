@@ -1,0 +1,160 @@
+{
+    "imports": [
+        "github.com/project-flogo/flow",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/reply",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/trigger/rest"
+    ],
+    "name": "Alexa_Skill_Flogo",
+    "description": "  ",
+    "version": "1.1.0",
+    "type": "flogo:app",
+    "appModel": "1.1.1",
+    "triggers": [
+        {
+            "ref": "#rest",
+            "name": "tibco-wi-rest",
+            "description": "Simple REST Trigger",
+            "settings": {
+                "port": 9999
+            },
+            "id": "ReceiveAlexaRequest",
+            "handlers": [
+                {
+                    "description": "Fill in the flow between the first and last activities&#160;",
+                    "settings": {
+                        "Method": "POST",
+                        "Path": "/v1/alexa_skill_test",
+                        "OutputValidation": false
+                    },
+                    "action": {
+                        "ref": "github.com/project-flogo/flow",
+                        "settings": {
+                            "flowURI": "res://flow:Execution_Flow"
+                        }
+                    },
+                    "reply": {
+                        "code": 200,
+                        "message": ""
+                    },
+                    "schemas": {
+                        "output": {
+                            "headers": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                                "fe_metadata": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                            },
+                            "body": {
+                                "type": "json",
+                                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"version\":{\"type\":\"string\"},\"session\":{\"type\":\"object\",\"properties\":{\"new\":{\"type\":\"boolean\"},\"sessionId\":{\"type\":\"string\"},\"application\":{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\"}}},\"user\":{\"type\":\"object\",\"properties\":{\"userId\":{\"type\":\"string\"},\"permissions\":{\"type\":\"object\",\"properties\":{\"consentToken\":{\"type\":\"string\"}}}}}}},\"context\":{\"type\":\"object\",\"properties\":{\"System\":{\"type\":\"object\",\"properties\":{\"application\":{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\"}}},\"user\":{\"type\":\"object\",\"properties\":{\"userId\":{\"type\":\"string\"},\"permissions\":{\"type\":\"object\",\"properties\":{\"consentToken\":{\"type\":\"string\"}}}}},\"device\":{\"type\":\"object\",\"properties\":{\"deviceId\":{\"type\":\"string\"},\"supportedInterfaces\":{\"type\":\"object\",\"properties\":{}}}},\"apiEndpoint\":{\"type\":\"string\"},\"apiAccessToken\":{\"type\":\"string\"}}},\"Viewport\":{\"type\":\"object\",\"properties\":{\"experiences\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"arcMinuteWidth\":{\"type\":\"number\"},\"arcMinuteHeight\":{\"type\":\"number\"},\"canRotate\":{\"type\":\"boolean\"},\"canResize\":{\"type\":\"boolean\"}}}},\"shape\":{\"type\":\"string\"},\"pixelWidth\":{\"type\":\"number\"},\"pixelHeight\":{\"type\":\"number\"},\"dpi\":{\"type\":\"number\"},\"currentPixelWidth\":{\"type\":\"number\"},\"currentPixelHeight\":{\"type\":\"number\"},\"touch\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}}}},\"request\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"requestId\":{\"type\":\"string\"},\"timestamp\":{\"type\":\"string\"},\"locale\":{\"type\":\"string\"},\"intent\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"confirmationStatus\":{\"type\":\"string\"}}}}}}}",
+                                "fe_metadata": "{\n\t\"version\": \"1.0\",\n\t\"session\": {\n\t\t\"new\": true,\n\t\t\"sessionId\": \"amzn1.echo-api.session.2b93b6bc-4639-4165-a9ad-c367fecccc0e\",\n\t\t\"application\": {\n\t\t\t\"applicationId\": \"amzn1.ask.skill.46f7205a-da05-46e6-bfeb-69a68342a1de\"\n\t\t},\n\t\t\"user\": {\n\t\t\t\"userId\": \"amzn1.ask.account.AEUFS7NIIILK2WMY66HTSO2HXFBCFJJ7WCIO7ZILAOQ3YY7LCHJ6UXPHEDOWHVZOOLMHDFF7BCFKNH6GSNPYESG4UAUZW4ROIWJTIVMDTQ562PVA2HC7KSVRJDNOOYSCS45DOSNHI3O4T2344PHX7MIPOYNP3KOWTXLKUMYCIULTT3GDXJPDQ7I736GNKNQJ47Q7YDYVCCWBNMQ\",\n\t\t\t\"permissions\": {\n\t\t\t\t\"consentToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLjQ2ZjcyMDVhLWRhMDUtNDZlNi1iZmViLTY5YTY4MzQyYTFkZSIsImV4cCI6MTU1NjI1MzI5NCwiaWF0IjoxNTU2MjUyOTk0LCJuYmYiOjE1NTYyNTI5OTQsInByaXZhdGVDbGFpbXMiOnsiaXNEZXByZWNhdGVkIjoidHJ1ZSIsImNvbnNlbnRUb2tlbiI6IkF0emF8SXdFQklITWFJZTlTbmp1QUNxY1VrMzk5LTJfZm1zb040SW85WGlJM08zLWNoUzVHMy1WWXhvMlNwZm9XOWJoVHB6TGpXbDE5NFJxUjQxR0EwUldKOGZzaGZBU3dsX1p3V3R1SUptck4wd2dBMkIyd0ZjUG1MSlM5RTFrTWZDZ1ljN3h0NXBWOHM4dVFRbXN4ZnZpdmlzUURCdm9JS0o0QTZqeHRXZ09XQ1J1QmViUWxoWjZFNlRRVlhEamNpVmpqQ2dnbS0xS0NLRnR0N2JCZmpab2RtaUt2ZzFLVC0ySG5vbUpncUxSQXNfOVVxcnBQQW9jZ2lUV0xpN1FMdUI3eXZXd2hEeG9nM3N2Qk1uaDlQd2FsdjlUM2tHMWRpeERra1NPZUdmazlIWURKSXJmMml6blMwRVlBSnNUazM0QURaUy16UkpIWjMtN0FwZXl6VnRLa3pHMFhWWFkwNFpGY1E1RDB5eU16MG0wZEhSQ09mY2k1QjQ0WkstQXc0UzNvLUxMMnRfOThBT1RZb3JEek9zcFl1RHJlSnp2blQxblJBT0FaQjMtQnFRTncxU1dBazJsZDhWeGRUMzhpYW5kdnVtLUE0cnZuMVhxcnhxaldrVGlpMU9sZVpoQnJlMHlUZ3ViT2g3SnhJV28tclZpOFExbjcxWFBsM3daRUNzYWZFTGl3UmJVeXV6dWFTdzZIOGJfaDBmblM3VXBtYjJKZzNNTGlKa2FXTnRKa3lJWU9RZXVXZHJLYVEwNEtOZEtMaWtVSnRsd0paeFhQRFZlYkRHeWNmY0NMWTZqN3l1UjlmN3AxV21PYnZ4MGh6NHE4MEpkU20zZGZPQUpNVGRqWXRuNE4xMjQwVTdkZUFYQk1aZG1mVDBJSGJRX2dkMlhTSkdWbHkwWnRUSTNXbFdnODhnIiwiZGV2aWNlSWQiOiJhbXpuMS5hc2suZGV2aWNlLkFHS0FXRFlDSEE2S1dPUU5KNFdKSjNGNEY2RVBISTc3M0k2T1AzSzYzVFFIRFhNNlVJMlBPVFRIQUVPSFFMQ0tBQkszTlI0MzRZVVFMTldEV0I1SUtNWVVHS1NSSlY1UkI3RlROU01PNURCNjNQUEdZUVJaRUVJTlNQRUQ3TlYyUVpTMkxGNUVaRVQ2VzZRNUNRT1k2VTUyNTNIQU9ZSlpFQklWQlNKV0QyTlZES1ZYV0NGRlUiLCJ1c2VySWQiOiJhbXpuMS5hc2suYWNjb3VudC5BRVVGUzdOSUlJTEsyV01ZNjZIVFNPMkhYRkJDRkpKN1dDSU83WklMQU9RM1lZN0xDSEo2VVhQSEVET1dIVlpPT0xNSERGRjdCQ0ZLTkg2R1NOUFlFU0c0VUFVWlc0Uk9JV0pUSVZNRFRRNTYyUFZBMkhDN0tTVlJKRE5PT1lTQ1M0NURPU05ISTNPNFQyMzQ0UEhYN01JUE9ZTlAzS09XVFhMS1VNWUNJVUxUVDNHRFhKUERRN0k3MzZHTktOUUo0N1E3WURZVkNDV0JOTVEifX0.BeCBq1XIGZwk33MLWndXUC9NNw_1FzRQVV8v1uYmfpj0Gox0MlHBYQGtIvjAGes7USjLvOVr3moom3upr1F3JYLfr26ZuG3WB4Bgrm6ZZbHQ2zRg5bkeXQ9c2TVSPz2r7BuhpJwtSTJ_2xyTjVA4yU6OGL7dxRh5MZ5r5BIEWNTcx6h7NLl3e882MdFrN2u0A-0gYChjwRg2aTKa7a9YWzax6YtglXmboUi7Ij9tDfnTC7XDZGl9BqTrX_d2sVESc1zuLAnrLdEUUzWYuiSECHm1y1nFlGyBgMUdClzINSdQ3dxE6riHk3BUVaXmKFQeBs_aUfWd-HTDxVbcSRKp8Q\"\n\t\t\t}\n\t\t}\n\t},\n\t\"context\": {\n\t\t\"System\": {\n\t\t\t\"application\": {\n\t\t\t\t\"applicationId\": \"amzn1.ask.skill.46f7205a-da05-46e6-bfeb-69a68342a1de\"\n\t\t\t},\n\t\t\t\"user\": {\n\t\t\t\t\"userId\": \"amzn1.ask.account.AEUFS7NIIILK2WMY66HTSO2HXFBCFJJ7WCIO7ZILAOQ3YY7LCHJ6UXPHEDOWHVZOOLMHDFF7BCFKNH6GSNPYESG4UAUZW4ROIWJTIVMDTQ562PVA2HC7KSVRJDNOOYSCS45DOSNHI3O4T2344PHX7MIPOYNP3KOWTXLKUMYCIULTT3GDXJPDQ7I736GNKNQJ47Q7YDYVCCWBNMQ\",\n\t\t\t\t\"permissions\": {\n\t\t\t\t\t\"consentToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLjQ2ZjcyMDVhLWRhMDUtNDZlNi1iZmViLTY5YTY4MzQyYTFkZSIsImV4cCI6MTU1NjI1MzI5NCwiaWF0IjoxNTU2MjUyOTk0LCJuYmYiOjE1NTYyNTI5OTQsInByaXZhdGVDbGFpbXMiOnsiaXNEZXByZWNhdGVkIjoidHJ1ZSIsImNvbnNlbnRUb2tlbiI6IkF0emF8SXdFQklITWFJZTlTbmp1QUNxY1VrMzk5LTJfZm1zb040SW85WGlJM08zLWNoUzVHMy1WWXhvMlNwZm9XOWJoVHB6TGpXbDE5NFJxUjQxR0EwUldKOGZzaGZBU3dsX1p3V3R1SUptck4wd2dBMkIyd0ZjUG1MSlM5RTFrTWZDZ1ljN3h0NXBWOHM4dVFRbXN4ZnZpdmlzUURCdm9JS0o0QTZqeHRXZ09XQ1J1QmViUWxoWjZFNlRRVlhEamNpVmpqQ2dnbS0xS0NLRnR0N2JCZmpab2RtaUt2ZzFLVC0ySG5vbUpncUxSQXNfOVVxcnBQQW9jZ2lUV0xpN1FMdUI3eXZXd2hEeG9nM3N2Qk1uaDlQd2FsdjlUM2tHMWRpeERra1NPZUdmazlIWURKSXJmMml6blMwRVlBSnNUazM0QURaUy16UkpIWjMtN0FwZXl6VnRLa3pHMFhWWFkwNFpGY1E1RDB5eU16MG0wZEhSQ09mY2k1QjQ0WkstQXc0UzNvLUxMMnRfOThBT1RZb3JEek9zcFl1RHJlSnp2blQxblJBT0FaQjMtQnFRTncxU1dBazJsZDhWeGRUMzhpYW5kdnVtLUE0cnZuMVhxcnhxaldrVGlpMU9sZVpoQnJlMHlUZ3ViT2g3SnhJV28tclZpOFExbjcxWFBsM3daRUNzYWZFTGl3UmJVeXV6dWFTdzZIOGJfaDBmblM3VXBtYjJKZzNNTGlKa2FXTnRKa3lJWU9RZXVXZHJLYVEwNEtOZEtMaWtVSnRsd0paeFhQRFZlYkRHeWNmY0NMWTZqN3l1UjlmN3AxV21PYnZ4MGh6NHE4MEpkU20zZGZPQUpNVGRqWXRuNE4xMjQwVTdkZUFYQk1aZG1mVDBJSGJRX2dkMlhTSkdWbHkwWnRUSTNXbFdnODhnIiwiZGV2aWNlSWQiOiJhbXpuMS5hc2suZGV2aWNlLkFHS0FXRFlDSEE2S1dPUU5KNFdKSjNGNEY2RVBISTc3M0k2T1AzSzYzVFFIRFhNNlVJMlBPVFRIQUVPSFFMQ0tBQkszTlI0MzRZVVFMTldEV0I1SUtNWVVHS1NSSlY1UkI3RlROU01PNURCNjNQUEdZUVJaRUVJTlNQRUQ3TlYyUVpTMkxGNUVaRVQ2VzZRNUNRT1k2VTUyNTNIQU9ZSlpFQklWQlNKV0QyTlZES1ZYV0NGRlUiLCJ1c2VySWQiOiJhbXpuMS5hc2suYWNjb3VudC5BRVVGUzdOSUlJTEsyV01ZNjZIVFNPMkhYRkJDRkpKN1dDSU83WklMQU9RM1lZN0xDSEo2VVhQSEVET1dIVlpPT0xNSERGRjdCQ0ZLTkg2R1NOUFlFU0c0VUFVWlc0Uk9JV0pUSVZNRFRRNTYyUFZBMkhDN0tTVlJKRE5PT1lTQ1M0NURPU05ISTNPNFQyMzQ0UEhYN01JUE9ZTlAzS09XVFhMS1VNWUNJVUxUVDNHRFhKUERRN0k3MzZHTktOUUo0N1E3WURZVkNDV0JOTVEifX0.BeCBq1XIGZwk33MLWndXUC9NNw_1FzRQVV8v1uYmfpj0Gox0MlHBYQGtIvjAGes7USjLvOVr3moom3upr1F3JYLfr26ZuG3WB4Bgrm6ZZbHQ2zRg5bkeXQ9c2TVSPz2r7BuhpJwtSTJ_2xyTjVA4yU6OGL7dxRh5MZ5r5BIEWNTcx6h7NLl3e882MdFrN2u0A-0gYChjwRg2aTKa7a9YWzax6YtglXmboUi7Ij9tDfnTC7XDZGl9BqTrX_d2sVESc1zuLAnrLdEUUzWYuiSECHm1y1nFlGyBgMUdClzINSdQ3dxE6riHk3BUVaXmKFQeBs_aUfWd-HTDxVbcSRKp8Q\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t\"device\": {\n\t\t\t\t\"deviceId\": \"amzn1.ask.device.AGKAWDYCHA6KWOQNJ4WJJ3F4F6EPHI773I6OP3K63TQHDXM6UI2POTTHAEOHQLCKABK3NR434YUQLNWDWB5IKMYUGKSRJV5RB7FTNSMO5DB63PPGYQRZEEINSPED7NV2QZS2LF5EZET6W6Q5CQOY6U5253HAOYJZEBIVBSJWD2NVDKVXWCFFU\",\n\t\t\t\t\"supportedInterfaces\": {}\n\t\t\t},\n\t\t\t\"apiEndpoint\": \"https://api.amazonalexa.com\",\n\t\t\t\"apiAccessToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLjQ2ZjcyMDVhLWRhMDUtNDZlNi1iZmViLTY5YTY4MzQyYTFkZSIsImV4cCI6MTU1NjI1MzI5NCwiaWF0IjoxNTU2MjUyOTk0LCJuYmYiOjE1NTYyNTI5OTQsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjoiQXR6YXxJd0VCSUhNYUllOVNuanVBQ3FjVWszOTktMl9mbXNvTjRJbzlYaUkzTzMtY2hTNUczLVZZeG8yU3Bmb1c5YmhUcHpMaldsMTk0UnFSNDFHQTBSV0o4ZnNoZkFTd2xfWndXdHVJSm1yTjB3Z0EyQjJ3RmNQbUxKUzlFMWtNZkNnWWM3eHQ1cFY4czh1UVFtc3hmdml2aXNRREJ2b0lLSjRBNmp4dFdnT1dDUnVCZWJRbGhaNkU2VFFWWERqY2lWampDZ2dtLTFLQ0tGdHQ3YkJmalpvZG1pS3ZnMUtULTJIbm9tSmdxTFJBc185VXFycFBBb2NnaVRXTGk3UUx1Qjd5dld3aER4b2czc3ZCTW5oOVB3YWx2OVQza0cxZGl4RGtrU09lR2ZrOUhZREpJcmYyaXpuUzBFWUFKc1RrMzRBRFpTLXpSSkhaMy03QXBleXpWdEtrekcwWFZYWTA0WkZjUTVEMHl5TXowbTBkSFJDT2ZjaTVCNDRaSy1BdzRTM28tTEwydF85OEFPVFlvckR6T3NwWXVEcmVKenZuVDFuUkFPQVpCMy1CcVFOdzFTV0FrMmxkOFZ4ZFQzOGlhbmR2dW0tQTRydm4xWHFyeHFqV2tUaWkxT2xlWmhCcmUweVRndWJPaDdKeElXby1yVmk4UTFuNzFYUGwzd1pFQ3NhZkVMaXdSYlV5dXp1YVN3Nkg4Yl9oMGZuUzdVcG1iMkpnM01MaUprYVdOdEpreUlZT1FldVdkckthUTA0S05kS0xpa1VKdGx3Slp4WFBEVmViREd5Y2ZjQ0xZNmo3eXVSOWY3cDFXbU9idngwaHo0cTgwSmRTbTNkZk9BSk1UZGpZdG40TjEyNDBVN2RlQVhCTVpkbWZUMElIYlFfZ2QyWFNKR1ZseTBadFRJM1dsV2c4OGciLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUdLQVdEWUNIQTZLV09RTko0V0pKM0Y0RjZFUEhJNzczSTZPUDNLNjNUUUhEWE02VUkyUE9UVEhBRU9IUUxDS0FCSzNOUjQzNFlVUUxOV0RXQjVJS01ZVUdLU1JKVjVSQjdGVE5TTU81REI2M1BQR1lRUlpFRUlOU1BFRDdOVjJRWlMyTEY1RVpFVDZXNlE1Q1FPWTZVNTI1M0hBT1lKWkVCSVZCU0pXRDJOVkRLVlhXQ0ZGVSIsInVzZXJJZCI6ImFtem4xLmFzay5hY2NvdW50LkFFVUZTN05JSUlMSzJXTVk2NkhUU08ySFhGQkNGSko3V0NJTzdaSUxBT1EzWVk3TENISjZVWFBIRURPV0hWWk9PTE1IREZGN0JDRktOSDZHU05QWUVTRzRVQVVaVzRST0lXSlRJVk1EVFE1NjJQVkEySEM3S1NWUkpETk9PWVNDUzQ1RE9TTkhJM080VDIzNDRQSFg3TUlQT1lOUDNLT1dUWExLVU1ZQ0lVTFRUM0dEWEpQRFE3STczNkdOS05RSjQ3UTdZRFlWQ0NXQk5NUSJ9fQ.P9BRcVHHlWJFbY9qFQiLTpvtC2gTV0bs1CIi_83Z2qQdRQLhS94Bs-5amaESUB7jAtnkR6LUoAmzyeXdTM9Pb3mOgZbjrruR5R-zeIaTnTPPGv0ni1vHeo4FyoNzjsSfMJjv9FoLvzdMrofn9KtQk3lypW0UfzTIfpQCpWnQkYCkEsr9hR7JSdx2yCZChDdlb_WICOdsnDhOWQhJxI219PXMJafPUYyaSANYm91nUJ-SAWxipNp8Kxfjsj3di2aeDW9Sa8YXuUDdDyXfqz05t5bP71GQSiLThBujluBFIuavpEJco_bgbruMuj9jKx3GcWXmFI5lW3EpfjkTb2FgZQ\"\n\t\t},\n\t\t\"Viewport\": {\n\t\t\t\"experiences\": [\n\t\t\t\t{\n\t\t\t\t\t\"arcMinuteWidth\": 246,\n\t\t\t\t\t\"arcMinuteHeight\": 144,\n\t\t\t\t\t\"canRotate\": false,\n\t\t\t\t\t\"canResize\": false\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"shape\": \"RECTANGLE\",\n\t\t\t\"pixelWidth\": 1024,\n\t\t\t\"pixelHeight\": 600,\n\t\t\t\"dpi\": 160,\n\t\t\t\"currentPixelWidth\": 1024,\n\t\t\t\"currentPixelHeight\": 600,\n\t\t\t\"touch\": [\n\t\t\t\t\"SINGLE\"\n\t\t\t]\n\t\t}\n\t},\n\t\"request\": {\n\t\t\"type\": \"IntentRequest\",\n\t\t\"requestId\": \"amzn1.echo-api.request.4b6bdf98-f7ac-4a31-bdbb-9d33c1c096f8\",\n\t\t\"timestamp\": \"2019-04-26T04:29:54Z\",\n\t\t\"locale\": \"en-US\",\n\t\t\"intent\": {\n\t\t\t\"name\": \"(intent name)\",\n\t\t\t\"confirmationStatus\": \"NONE\"\n\t\t}\n\t}\n}"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "resources": [
+        {
+            "id": "flow:Execution_Flow",
+            "data": {
+                "name": "Execution Flow",
+                "description": "Fill in the flow between the first and last activities&#160;",
+                "links": [],
+                "tasks": [
+                    {
+                        "id": "AlexaResponse",
+                        "name": "AlexaResponse",
+                        "description": "Simple HTTP Reply Activity",
+                        "activity": {
+                            "ref": "#reply",
+                            "input": {
+                                "Reply": "Success with Data",
+                                "code": 200,
+                                "message": "Ok",
+                                "data": {
+                                    "mapping": {
+                                        "version": "1.0",
+                                        "response": {
+                                            "outputSpeech": {
+                                                "type": "PlainText",
+                                                "text": "Hello World"
+                                            },
+                                            "card": {
+                                                "content": "Nothing to see here",
+                                                "title": "Info",
+                                                "type": "Simple"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "schemas": {
+                                "input": {
+                                    "data": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"version\":{\"type\":\"string\"},\"response\":{\"type\":\"object\",\"properties\":{\"outputSpeech\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"text\":{\"type\":\"string\"}}},\"card\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"content\":{\"type\":\"string\"}}}}}}}",
+                                        "fe_metadata": "{\n    \"version\": \"1.0\",\n    \"response\": {\n        \"outputSpeech\": {\n            \"type\": \"PlainText\",\n            \"text\": \"Text to speak back to the user.\"\n        },\n        \"card\": {\n            \"type\": \"Simple\",\n            \"title\": \"Example of the Card Title\",\n            \"content\": \"Example of card content. This card has just plain text content.\\nThe content is formatted with line breaks to improve readability.\"\n        }\n    }\n}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "errorHandler": {
+                    "tasks": [
+                        {
+                            "id": "ReplyToHTTPMessage",
+                            "name": "ReplyToHTTPMessage",
+                            "description": "Simple HTTP Reply Activity",
+                            "activity": {
+                                "ref": "#reply",
+                                "input": {
+                                    "Reply": "Success with Data",
+                                    "code": 200,
+                                    "message": "Ok",
+                                    "data": {
+                                        "mapping": {
+                                            "version": "1.0",
+                                            "response": {
+                                                "outputSpeech": {
+                                                    "type": "PlainText",
+                                                    "text": "This aint it"
+                                                },
+                                                "card": {
+                                                    "type": "Simple",
+                                                    "title": "WHYYY",
+                                                    "content": "I dont like it"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "schemas": {
+                                    "input": {
+                                        "data": {
+                                            "type": "json",
+                                            "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"version\":{\"type\":\"string\"},\"response\":{\"type\":\"object\",\"properties\":{\"outputSpeech\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"text\":{\"type\":\"string\"}}},\"card\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"content\":{\"type\":\"string\"}}}}}}}",
+                                            "fe_metadata": "{\n    \"version\": \"1.0\",\n    \"response\": {\n        \"outputSpeech\": {\n            \"type\": \"PlainText\",\n            \"text\": \"Text to speak back to the user.\"\n        },\n        \"card\": {\n            \"type\": \"Simple\",\n            \"title\": \"Example of the Card Title\",\n            \"content\": \"Example of card content. This card has just plain text content.\\nThe content is formatted with line breaks to improve readability.\"\n        }\n    }\n}"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "links": []
+                },
+                "metadata": {
+                    "input": [],
+                    "output": [],
+                    "fe_metadata": {}
+                },
+                "explicitReply": true
+            }
+        }
+    ],
+    "properties": [],
+    "connections": {},
+    "contrib": "W3sicmVmIjoiZ2l0LnRpYmNvLmNvbS9naXQvcHJvZHVjdC9pcGFhcy93aS1jb250cmliLmdpdC9jb250cmlidXRpb25zL0dlbmVyYWwiLCJzM2xvY2F0aW9uIjoiVGliY28vR2VuZXJhbCJ9XQ==",
+    "fe_metadata": "UEsDBAoAAAAIANOmpVCmTf11IwAAACMAAAAIAAAAYXBwLmpzb26rViopykxPTy1yy8kvL1ayilZyrUhNLi3JzM+LBwkpxdYCAFBLAQIUAAoAAAAIANOmpVCmTf11IwAAACMAAAAIAAAAAAAAAAAAAAAAAAAAAABhcHAuanNvblBLBQYAAAAAAQABADYAAABJAAAAAAA="
+}
